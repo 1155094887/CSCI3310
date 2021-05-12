@@ -3,28 +3,16 @@
     android:id="@+id/bottomSheetContainer"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
+    
     <TextView
-        android:id="@+id/location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="15dp"
         android:text="TESTING" />
 
-    <GridView
-        android:id="@+id/grid_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="6"
-        android:columnWidth="10dp"
-        android:horizontalSpacing="10dp"
-        android:verticalSpacing="10dp"
-        android:gravity="center"
-        android:stretchMode="columnWidth" />
-
     <Button
-        android:id="@id/testing_button"
+        android:id="@+id/testing_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="Testing"

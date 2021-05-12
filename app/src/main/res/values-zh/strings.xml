@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CSCI3310</string>
+    <string name="test_button">Cantonese</string>
+    <string name="testing_text">cantonese</string>
+    <string name="Central_and_Western">中西區</string>
+    <string name="Wan_Chai">灣仔區</string>
+    <string name="Eastern">東區</string>
+    <string name="Southern">南區</string>
+    <string name="Sham_Shui_Po">深水埗區</string>
+    <string name="Yau_Tsim_Mong">油尖旺區</string>
+    <string name="Kowloon_City">九龍城區</string>
+    <string name="Wong_Tai_Sin">黃大仙區</string>
+    <string name="Kwun_Tong">觀塘區</string>
+    <string name="Kwai_Tsing">葵青區</string>
+    <string name="Tsuen_Wan">荃灣區</string>
+    <string name="Tuen_Mun">屯門區</string>
+    <string name="Yuen_Long">元朗區</string>
+    <string name="North">北區</string>
+    <string name="Tai_Po">大埔區</string>
+    <string name="Sha_Tin">沙田區</string>
+    <string name="Sai_King">西貢區</string>
+    <string name="Island">離島區</string>
+    <string name="take_photo">yin shuen</string>
+</resources>

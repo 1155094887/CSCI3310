@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">CSCI3310</string>
+    <string name="google_map_key" templateMergeStragetegy="preserve" translatable="false">AIzaSyCIN4C0FPijfP7c5_43o0KDZ6afF3uqt38</string>
+    <string name="test_button">English</string>
+    <string name="testing_text">testing</string>
+    <string name="Tsuen_Wan">Tsuen Wan</string>
+    <string name="Kwai_Tsing">Kwai Tsing</string>
+    <string name="Tuen_Mun">Tuen Mun</string>
+    <string name="Yuen_Long">Yuen Long</string>
+    <string name="North">North</string>
+    <string name="Tai_Po">Tai Po</string>
+    <string name="Sha_Tin">Sha Tin</string>
+    <string name="Sai_King">Sai Kung</string>
+    <string name="Island">Island</string>
+    <string name="Kowloon_City">Kowloon City</string>
+    <string name="Kwun_Tong">Kwun Tong</string>
+    <string name="Sham_Shui_Po">Sham Shui Po</string>
+    <string name="Wong_Tai_Sin">Wong Tai Sin</string>
+    <string name="Yau_Tsim_Mong">Yau Tsim Mong</string>
+    <string name="Central_and_Western">Central and Western</string>
+    <string name="Eastern">Eastern</string>
+    <string name="Southern">Southern</string>
+    <string name="Wan_Chai">Wan Chai</string>
+    <string name="take_photo">Take Photo</string>
 </resources>
