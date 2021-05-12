@@ -2,5 +2,4 @@
 <resources>
     <item name="edit_username" type="id"></item>
     <item name="edit_password" type="id"></item>
-    <item name="testing_button" type="id"></item>
 </resources>
