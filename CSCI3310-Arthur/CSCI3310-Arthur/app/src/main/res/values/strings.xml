@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Get Photo as Album</string>
+
+    <string name="hello_world" translatable="false">Hello world xd!</string>
+    <string name="msg_failed_to_get_picture" translatable="false">Failed to get image</string>
+    <string name="lbl_pick_single_image" translatable="false">Select single image</string>
+    <string name="lbl_pick_multiple_image" translatable="false">Select multiple images</string>
+    <string name="txt_info" translatable="false">Quick sample for selecting images on Android</string>
+    <string name="msg_failed_to_get_intent_data" translatable="false">Failed to get intent data</string>
+    <string name="select_picture" translatable="false">Select Picture</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title_activity_gallery" translatable="false">GalleryActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="previous" translatable="false">Previous</string>
+
+    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
+    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
+    <string name="time">Time</string>
+    <string name="location">district</string>
+    <string name="person">person</string>
+    <string name="uri">uri</string>
+    <string name="name">Name</string>
+    <string name="date">Date</string>
+    <string name="none">none</string>
+</resources>

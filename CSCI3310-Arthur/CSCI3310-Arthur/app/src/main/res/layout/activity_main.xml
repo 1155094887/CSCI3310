@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+<!--    <ScrollView-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:layout_height="fill_parent"-->
+<!--        android:background="#ffffff"-->
+<!--        app:layout_constraintStart_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="parent">-->
+
+
+    <TextView
+        android:id="@+id/txt_hello"
+        android:text="@string/txt_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="10sp"
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <Button
+        android:id="@+id/click_to_show_tag"
+        android:layout_width="50sp"
+        android:layout_height="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <Button
+        android:id="@+id/btn_pick_single_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_hello"
+        android:text="@string/lbl_pick_single_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_hello"
+        />
+
+    <Button
+        android:id="@+id/btn_pick_multiple_images"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_pick_single_image"
+        android:text="@string/lbl_pick_multiple_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_pick_single_image"
+        />
+
+    <ImageView
+        android:id="@+id/image_preview"
+        android:layout_height="180sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:contentDescription="flower"
+        app:layout_constraintEnd_toEndOf="parent"
+
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_pick_multiple_images"
+        android:layout_width="250sp" />
+
+    <Spinner
+        android:id="@+id/spinnerSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_selected_date_2" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/image_preview"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <RadioButton
+            android:id="@+id/radio_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="time" />
+
+        <RadioButton
+            android:id="@+id/radio_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="location" />
+
+        <RadioButton
+            android:id="@+id/radio_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="people" />
+
+        <RadioButton
+            android:id="@+id/radio_none"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="none" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/txt_date_1"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup"
+        />
+
+    <Button
+        android:id="@+id/btn_selected_date_1"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_hello"
+        android:text="From"
+        android:clickable="false"
+        app:layout_constraintStart_toEndOf="@id/txt_date_1"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup"
+        />
+
+    <EditText
+        android:id="@+id/txt_date_2"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:padding="8dp"
+        app:layout_constraintStart_toEndOf="@id/btn_selected_date_1"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup"
+        />
+
+    <Spinner
+        android:id="@+id/spinnerplace_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_date_2" />
+
+    <Button
+        android:id="@+id/btn_selected_date_2"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_hello"
+        android:clickable="false"
+        android:text="Okay"
+        app:layout_constraintStart_toEndOf="@id/spinnerplace_filter"
+        app:layout_constraintTop_toBottomOf="@id/txt_date_2"
+        />
+
+    <EditText
+        android:id="@+id/txt_person"
+        android:visibility="invisible"
+        android:layout_marginLeft="20sp"
+        android:hint="People_tag"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:padding="8dp"
+        app:layout_constraintStart_toEndOf="@id/txt_date_2"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup"
+        />
+<!--    <FrameLayout-->
+<!--        android:id="@+id/gridView_onePhoto_fragment"-->
+<!--        android:visibility="visible"-->
+<!--        android:layout_width="400sp"-->
+<!--        android:layout_height="250sp"-->
+<!--        android:layout_marginTop="264dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/spinnerSort"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        />-->
+
+
+<!--    <fragment-->
+<!--        class="com.example.myapplication.BlankFragment"-->
+<!--        android:layout_width="400sp"-->
+<!--        android:layout_height="250sp"-->
+<!--        android:layout_marginTop="264dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/btn_pick_multiple_images"-->
+<!--        android:id="@+id/list_fragment"-->
+<!--        />-->
+
+
+    <FrameLayout
+        android:id="@+id/list_fragment"
+        android:visibility="visible"
+        android:layout_width="400sp"
+        android:layout_height="250sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerSort"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+<!--    </ScrollView>-->
+</androidx.constraintlayout.widget.ConstraintLayout>

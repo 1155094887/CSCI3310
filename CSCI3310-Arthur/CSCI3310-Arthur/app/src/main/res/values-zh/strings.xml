@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Get Photo as Album</string>
+    <string name="time" translatable="false">時間</string>
+    <string name="location">地區</string>
+    <string name="person">人</string>
+    <string name="uri">uri</string>
+    <string name="date">日期</string>
+    <string name="name">名稱</string>
+</resources>
