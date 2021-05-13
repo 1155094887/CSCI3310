@@ -3,6 +3,8 @@ package fragments;
 import android.annotation.SuppressLint;
 import android.content.ContextWrapper;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Rational;
@@ -19,6 +21,7 @@ import android.os.Environment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.FlashMode;
 import androidx.camera.core.ImageCapture;
@@ -34,6 +37,7 @@ import com.example.csci3310.R;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class PhotoTakingFragment extends Fragment {
 
@@ -112,13 +116,19 @@ public class PhotoTakingFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                File file = new File(FILE_PATH_NAME + System.currentTimeMillis() + ".jpg");
+                File file = new File(FILE_PATH_NAME + "/" +System.currentTimeMillis() + ".jpg");
+
                 imageCapture.takePicture(file, new ImageCapture.OnImageSavedListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onImageSaved(@NonNull File file) {
 
                         String msg = "Pic saved! At" + file.getAbsolutePath();
                         Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
+
+                        ArrayList<String>history = new ArrayList<String>();
+                        TagformFragment form = new TagformFragment().newInistance("",System.currentTimeMillis()+"",file.getAbsolutePath(), history,BitmapFactory.decodeFile(file.toPath().toString()),false);
+                        form.show(getFragmentManager(),TagformFragment.TAG);
                     }
 
                     @Override

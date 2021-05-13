@@ -154,8 +154,8 @@ public class PageFragment2 extends Fragment {
                             );
 
                     // --- Display the selected location in the bottomsheet
-                    location = bottomSheetView.findViewById(R.id.location);
-                    location.setText(marker.getTitle());
+//                    location = bottomSheetView.findViewById(R.id.location);
+//                    location.setText(marker.getTitle());
 
                     // --- Bottomsheet Button Action ---
                     bottomSheetView.findViewById(R.id.testing_button).setOnClickListener(new View.OnClickListener() {
@@ -169,18 +169,18 @@ public class PageFragment2 extends Fragment {
                     // --- Bottomsheet Button Action ---
 
                     // Set the grid view
-                    gridView = (GridView) bottomSheetView.findViewById(R.id.grid_view);
-                    gridView.setAdapter(new ImageAdapter(getContext())); // this變getContext()
-
-                    // OnClickListener of the grid photo
-                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            Toast toast = Toast.makeText(getActivity(),"Photo Button Successful", Toast.LENGTH_SHORT);
-                            toast.show();
-                            bottomSheetDialog.dismiss();
-                        }
-                    });
+//                    gridView = (GridView) bottomSheetView.findViewById(R.id.grid_view);
+//                    gridView.setAdapter(new ImageAdapter(getContext())); // this變getContext()
+//
+//                    // OnClickListener of the grid photo
+//                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                            Toast toast = Toast.makeText(getActivity(),"Photo Button Successful", Toast.LENGTH_SHORT);
+//                            toast.show();
+//                            bottomSheetDialog.dismiss();
+//                        }
+//                    });
 
                     bottomSheetDialog.setContentView(bottomSheetView);
                     bottomSheetDialog.show();
