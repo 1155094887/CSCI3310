@@ -353,8 +353,15 @@ public class TagformFragment extends DialogFragment {
                         person_out += ";"+((TextView)tag_view.findViewWithTag("edit_person"+String.valueOf(i))).getText().toString();
                     }
 //                    person_out = person_out.substring(0,person_out.length()-1);
-
-                    String uri_out = uri;
+                    String output_name;
+                    ContextWrapper contextWrapper= new ContextWrapper(getContext());
+                    String FILE_PATH_NAME = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DCIM).toString();
+                    if(uri.endsWith(".jpg")){
+                        output_name = uri;
+                    }else{
+                        output_name = FILE_PATH_NAME+"/"+uri.split("/")[uri.split("/").length-1]+".jpg";
+                    }
+                    String uri_out = output_name;
                     Toast.makeText(getActivity(),person_out,Toast.LENGTH_SHORT).show();
                     String data_out = "'"+name_out + "','" + time_out + "','"+ place_out + "','" + lat_long_out + "','"+person_out+"','"+uri_out+"'";
                     String csv = Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -365,9 +372,9 @@ public class TagformFragment extends DialogFragment {
                     File picture_info = new File(csv.concat("/"+Environment.DIRECTORY_DOCUMENTS), "detail.csv");
                     picture_info.setWritable(true);
                     //save in internal path
-                    ContextWrapper contextWrapper= new ContextWrapper(getContext());
 
-                        String FILE_PATH_NAME = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DCIM).toString();
+
+
                     File folder = new File(contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DCIM).toString());
                     File[] listOfFiles = folder.listFiles();
                     boolean canCreate = true;
@@ -377,12 +384,7 @@ public class TagformFragment extends DialogFragment {
                         }
                     }
                     if(canCreate){
-                        String output_name;
-                        if(!uri.endsWith(".jpg")){
-                            output_name = uri;
-                        }else{
-                            output_name = FILE_PATH_NAME+"/"+uri.split("/")[uri.split("/").length-1];
-                        }
+
                         try (FileOutputStream fos = new FileOutputStream(output_name)) {
                             fos.write(file_byte);
                             //fos.close // no need, try-with-resources auto close

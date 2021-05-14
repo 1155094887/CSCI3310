@@ -59,8 +59,9 @@ import java.util.function.BooleanSupplier;
 public class showTagFragment extends DialogFragment {
 
     int count = 0;
-//    ArrayList<String> urilist;
-    public static showTagFragment newInistance(String time, String name, Uri uri, String history,boolean showInfo_or_sort,ArrayList<String> urilist) {
+    //    ArrayList<String> urilist;
+    static GridView gridview;
+    public static showTagFragment newInistance(String time, String name, Uri uri, String history,boolean showInfo_or_sort,ArrayList<String> urilist,View view) {
         showTagFragment f = new showTagFragment();
 
         // Supply num input as an argument.
@@ -70,9 +71,16 @@ public class showTagFragment extends DialogFragment {
         args.putString("uri",uri.toString());
         args.putBoolean("showInfo",showInfo_or_sort);
 //        args.putStringArrayList("history",history);
+
         if(!showInfo_or_sort){
             args.putStringArrayList("urilist",urilist);
         }
+        try{
+            gridview = (GridView) view;
+        }catch(ClassCastException e){
+            e.printStackTrace();
+        }
+
         f.setArguments(args);
 
 
@@ -91,10 +99,11 @@ public class showTagFragment extends DialogFragment {
 
 
 //        String name = getArguments().getString("name");
-
+        final boolean[] isFiltered = {false};
         String uri = getArguments().getString("uri");
         boolean showInfo = getArguments().getBoolean("showInfo");
         ArrayList<String> urilist = getArguments().getStringArrayList("urilist");
+        ArrayList<String> uri_filtered_list;
         String csv_read = Environment.getExternalStorageDirectory().getAbsolutePath();
         File picture_info_read = new File(csv_read.concat("/"+ Environment.DIRECTORY_DOCUMENTS), "detail.csv");
         ArrayList<String> stringArray_read = new ArrayList<String>();
@@ -384,19 +393,20 @@ public class showTagFragment extends DialogFragment {
                         }
                     }
                 }
-                switch (txtView.getText().toString()){
-                    case "time":
-                        if(urilist == null){
-                            return;
-                        }else{
-                            int year = 0;
-                            int month = 0;
-                            int day = 0;
-                            String previous_time = "";
-                            String time = "";
+                try{
+                    switch (txtView.getText().toString()){
+                        case "time":
+                            if(urilist == null){
+                                return;
+                            }else{
+                                int year = 0;
+                                int month = 0;
+                                int day = 0;
+                                String previous_time = "";
+                                String time = "";
 
-                            for(int i = 0; i < urilist.size()-1; i++){
-                                int min_idx = i;
+                                for(int i = 0; i < urilist.size()-1; i++){
+                                    int min_idx = i;
 //                                if(urilist[i] == null){
 //                                    continue;
 //                                }
@@ -411,8 +421,8 @@ public class showTagFragment extends DialogFragment {
 //                                } catch (IOException e) {
 //                                    e.printStackTrace();
 //                                }
-                                for (int j = i+1; j < urilist.size(); j++) {
-                                    String temp_time = "";
+                                    for (int j = i+1; j < urilist.size(); j++) {
+                                        String temp_time = "";
 //                                    try (InputStream inputStream = getContentResolver().openInputStream(Uri.parse(urilist[j]))) {
 //                                        ExifInterface exif = new ExifInterface(inputStream);
 //                                        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
@@ -423,25 +433,25 @@ public class showTagFragment extends DialogFragment {
 //                                    } catch (IOException e) {
 //                                        e.printStackTrace();
 //                                    }
-                                    try{
                                         try{
-                                            if (sdf.parse(time_list.get(i)).getTime()-sdf.parse(time_list.get(j)).getTime() > 0){
-                                                min_idx = j;
+                                            try{
+                                                if (sdf.parse(time_list.get(i)).getTime()-sdf.parse(time_list.get(j)).getTime() > 0){
+                                                    min_idx = j;
+                                                }
+                                                continue;
+                                            }catch (IndexOutOfBoundsException e){
+                                                e.printStackTrace();
                                             }
-                                            continue;
-                                        }catch (IndexOutOfBoundsException e){
-                                            e.printStackTrace();
-                                        }
 //                                        if (sdf.parse(time).getTime()-sdf.parse(temp_time).getTime() > 0){
 //                                            min_idx = j;
 //                                        }
-                                    }catch(ParseException e){
-                                        e.printStackTrace();
-                                    }
+                                        }catch(ParseException e){
+                                            e.printStackTrace();
+                                        }
 
 //                                    if (arr[j] < arr[min_idx])
 //                                        min_idx = j;
-                                }
+                                    }
 //                                if(i > 0 && time != null){
 //                                    try {
 //
@@ -458,24 +468,24 @@ public class showTagFragment extends DialogFragment {
 //                                    previous_time = time;
 //                                }
 
-                                String temp = urilist.get(min_idx);
-                                urilist.set(min_idx, urilist.get(i));
-                                urilist.set(i, temp);
+                                    String temp = urilist.get(min_idx);
+                                    urilist.set(min_idx, urilist.get(i));
+                                    urilist.set(i, temp);
 
 
 
+                                }
                             }
-                        }
 
-                        break;
-                    case "place":
-
-                        if (stringArray.size() == 0){
                             break;
-                        }
+                        case "place":
+
+                            if (stringArray.size() == 0){
+                                break;
+                            }
 
 
-                        int count = urilist.size();
+                            int count = urilist.size();
 ////                        String[] str = new String[count];
 ////                        int k = 0;
 //                        for(String row : locations){
@@ -484,32 +494,32 @@ public class showTagFragment extends DialogFragment {
 //                            str[k] = lower_string;
 //                            k += 1;
 //                        }
-                        for (int i = 0; i < count-1; i++)
-                        {
-                            for (int j = i + 1; j < count; j++)
+                            for (int i = 0; i < count-1; i++)
                             {
-                                if (locations.get(i).compareTo(locations.get(j)) > 0)
+                                for (int j = i + 1; j < count; j++)
                                 {
+                                    if (locations.get(i).compareTo(locations.get(j)) > 0)
+                                    {
 //                                    String temp = urilist[i];
 //                                    urilist[i] = urilist[j];
 //                                    urilist[j] = temp;
 
-                                    String temp = urilist.get(i);
-                                    urilist.set(i, urilist.get(j));
-                                    urilist.set(j, temp);
+                                        String temp = urilist.get(i);
+                                        urilist.set(i, urilist.get(j));
+                                        urilist.set(j, temp);
+                                    }
                                 }
                             }
-                        }
 
 
-                        break;
-                    case "people":
-                        if (stringArray.size() == 0){
                             break;
-                        }
+                        case "people":
+                            if (stringArray.size() == 0){
+                                break;
+                            }
 
 
-                        count = urilist.size();
+                            count = urilist.size();
 ////                        String[] str = new String[count];
 ////                        int k = 0;
 //                        for(String row : locations){
@@ -518,28 +528,32 @@ public class showTagFragment extends DialogFragment {
 //                            str[k] = lower_string;
 //                            k += 1;
 //                        }
-                        for (int i = 0; i < count-1; i++)
-                        {
-                            for (int j = i + 1; j < count; j++)
+                            for (int i = 0; i < count-1; i++)
                             {
+                                for (int j = i + 1; j < count; j++)
+                                {
 //                                if (people_list.get(i).compareTo(people_list.get(j)) > 0)
 //                                {
-                                if(people_list.get(i).split(";").length > people_list.get(j).split(";").length){
+                                    if(people_list.get(i).split(";").length > people_list.get(j).split(";").length){
 //                                    String temp = urilist[i];
 //                                    urilist[i] = urilist[j];
 //                                    urilist[j] = temp;
-                                    String temp = urilist.get(i);
-                                    urilist.set(i, urilist.get(j));
-                                    urilist.set(j, temp);
+                                        String temp = urilist.get(i);
+                                        urilist.set(i, urilist.get(j));
+                                        urilist.set(j, temp);
+                                    }
                                 }
                             }
-                        }
 
 
-                        break;
-                    case"none":
-                        break;
+                            break;
+                        case"none":
+                            break;
+                    }
+                }catch(IndexOutOfBoundsException e){
+                    Toast.makeText(getActivity(),"photo tag not being created or something wrong with storage please retry.",Toast.LENGTH_SHORT).show();
                 }
+
 //                transaction =
 //                        getSupportFragmentManager().beginTransaction();
 
@@ -713,6 +727,7 @@ public class showTagFragment extends DialogFragment {
             }
         });
         //flitering algo
+        uri_filtered_list = new ArrayList<String>();
         btn2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -763,8 +778,8 @@ public class showTagFragment extends DialogFragment {
                         }
                     }
                 }
-                ArrayList<String> uri_filtered_list = new ArrayList<String>();
-                switch(radioGroup.getCheckedRadioButtonId()){
+                try{
+                    switch(radioGroup.getCheckedRadioButtonId()){
                     case R.id.radio_time:
                         String time_down_bound = txt1.getText().toString();
                         String time_up_bound = txt2.getText().toString();
@@ -779,6 +794,7 @@ public class showTagFragment extends DialogFragment {
                                 e.printStackTrace();
                             }
                         }
+                        isFiltered[0] = true;
 //                        urilist = (ArrayList<String>) uri_filtered_list.clone();
                         break;
                     case R.id.radio_location:
@@ -791,6 +807,7 @@ public class showTagFragment extends DialogFragment {
                                 uri_filtered_list.add(urilist.get(i));
                             }
                         }
+                        isFiltered[0] = true;
 //                        urilist = (ArrayList<String>) uri_filtered_list.clone();
                         break;
                     case R.id.radio_person:
@@ -801,6 +818,7 @@ public class showTagFragment extends DialogFragment {
                                 uri_filtered_list.add(urilist.get(i));
                             }
                         }
+                        isFiltered[0] = true;
 //                        urilist = (ArrayList<String>) uri_filtered_list.clone();
                         break;
                     case R.id.radio_none:
@@ -809,7 +827,9 @@ public class showTagFragment extends DialogFragment {
 //                        uri_filtered_list = (ArrayList<String>) urilist.clone();
                         break;
                 }
-
+                }catch(IndexOutOfBoundsException e){
+                    Toast.makeText(getActivity(),"photo tag not being created or something wrong with storage please retry.",Toast.LENGTH_SHORT).show();
+                }
 
 
 
@@ -824,9 +844,18 @@ public class showTagFragment extends DialogFragment {
 //                .setView(R.id.editField)
                 .setView(showInfo ? show_tag : show_filter_sort)
                 .setPositiveButton("ok", (dialog, which) -> {
-                    ImageAdapter mImageAdaptor = new ImageAdapter(getContext(), urilist,true);
-                    GridView gridview = rootView.findViewById(R.id.gridview);
-                    gridview.setAdapter(mImageAdaptor);
+                    if(!showInfo){
+                        ImageAdapter mImageAdaptor;
+                        if(!isFiltered[0]){
+                            mImageAdaptor = new ImageAdapter(getContext(), urilist,false);
+                        }else{
+                            mImageAdaptor = new ImageAdapter(getContext(),uri_filtered_list,false);
+                        }
+
+//                    GridView gridview = rootView.findViewById(R.id.gridview);
+                        gridview.setAdapter(mImageAdaptor);
+                    }
+
 //                    String name_out = editName.getText().toString();
 //                    String time_out = editView.getText().toString();
 //                    String place_out = dropdown.getSelectedItem().toString();

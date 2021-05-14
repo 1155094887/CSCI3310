@@ -11,12 +11,17 @@
         android:padding="15dp"
         android:text="TESTING" />
 
-    <Button
-        android:id="@+id/testing_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="Testing"
-        android:text="Testing Button" />
+    <GridView
+        android:id="@+id/grid_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:columnWidth="150dip"
+        android:gravity="center"
+        android:horizontalSpacing="10dip"
+        android:numColumns="5"
+        android:padding="10dip"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dip" />
 
 
 

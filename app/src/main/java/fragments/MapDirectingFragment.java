@@ -97,14 +97,14 @@ public class MapDirectingFragment extends Fragment {
                             );
 
                     // --- Bottomsheet Button Action ---
-                    bottomSheetView.findViewById(R.id.testing_button).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Toast toast = Toast.makeText(getActivity(),"TESTING", Toast.LENGTH_SHORT);
-                            toast.show();
-                            bottomSheetDialog.dismiss();
-                        }
-                    });
+//                    bottomSheetView.findViewById(R.id.testing_button).setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            Toast toast = Toast.makeText(getActivity(),"TESTING", Toast.LENGTH_SHORT);
+//                            toast.show();
+//                            bottomSheetDialog.dismiss();
+//                        }
+//                    });
                     // --- Bottomsheet Button Action ---
 
                     bottomSheetDialog.setContentView(bottomSheetView);

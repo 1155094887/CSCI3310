@@ -162,7 +162,8 @@ public class ImageAdapter extends BaseAdapter {
                         @Override
                         public boolean onMenuItemClick(MenuItem menuItem) {
                             FragmentActivity activity = (FragmentActivity)(context);
-                            showTagFragment fragment= showTagFragment.newInistance("","",Uri.parse(""),"",true,uri_strings);
+
+                            showTagFragment fragment= showTagFragment.newInistance("","",Uri.parse(""),"",true,uri_strings,v);
                             fragment.show(activity.getSupportFragmentManager(), showTagFragment.TAG);
 
 

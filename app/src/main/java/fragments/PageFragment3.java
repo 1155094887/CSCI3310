@@ -28,7 +28,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.csci3310.R;
 import com.example.csci3310.*;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -83,6 +85,30 @@ public class PageFragment3 extends Fragment {
             Toast.makeText(getActivity(),file.getAbsolutePath(),Toast.LENGTH_SHORT).show();
             urilist.add(file.getAbsolutePath());
         }
+        String csv_read = Environment.getExternalStorageDirectory().getAbsolutePath();
+        File picture_info_read = new File(csv_read.concat("/"+ Environment.DIRECTORY_DOCUMENTS), "detail.csv");
+        ArrayList<String> stringArray_read = new ArrayList<String>();
+
+        BufferedReader file_read = null;
+        try {
+            file_read = new BufferedReader(new FileReader(picture_info_read));
+
+            String line;
+            boolean replace = false;
+            while ((line = file_read.readLine()) != null) {
+                stringArray_read.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(),"Error getting data from external storage",Toast.LENGTH_SHORT).show();
+        }
+//        for(String row:stringArray_read){
+//            if(urilist.contains(row.split(",")[5])){
+//                continue;
+//            }else{
+//                urilist.add(row.split(",")[5].substring(1,row.split(",")[5].length()-1));
+//            }
+//        }
         Toast.makeText(getActivity(),"onCreated",Toast.LENGTH_SHORT).show();
         gallery = rootView.findViewById(R.id.gridview);
 //        TextView temp = view.findViewById(R.id.txt_fragment);
@@ -96,7 +122,7 @@ public class PageFragment3 extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentActivity activity = (FragmentActivity)(getActivity());
-                showTagFragment fragment= showTagFragment.newInistance("","",Uri.parse(""),"",false,urilist);
+                showTagFragment fragment= showTagFragment.newInistance("","",Uri.parse(""),"",false,urilist,gallery);
                 fragment.show(activity.getSupportFragmentManager(),showTagFragment.TAG);
             }
         });

@@ -163,14 +163,14 @@ public class PageFragment2 extends Fragment {
 //                    location.setText(marker.getTitle());
 
                     // --- Bottomsheet Button Action ---
-                    bottomSheetView.findViewById(R.id.testing_button).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Toast toast = Toast.makeText(getActivity(),"OK Button Successful", Toast.LENGTH_SHORT);
-                            toast.show();
-                            bottomSheetDialog.dismiss();
-                        }
-                    });
+//                    bottomSheetView.findViewById(R.id.testing_button).setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            Toast toast = Toast.makeText(getActivity(),"OK Button Successful", Toast.LENGTH_SHORT);
+//                            toast.show();
+//                            bottomSheetDialog.dismiss();
+//                        }
+//                    });
                     // --- Bottomsheet Button Action ---
 
                     // Set the grid view
@@ -194,7 +194,7 @@ public class PageFragment2 extends Fragment {
                     for(String row: stringArray){
                         urilist.add(row.split(",")[5]);
                     }
-                    gridView = (GridView) bottomSheetView.findViewById(R.id.gridview);
+                    gridView = (GridView) bottomSheetView.findViewById(R.id.grid_view);
                     gridView.setAdapter(new ImageAdapter(getContext(),urilist,true)); // this變getContext()
 //
 //                    // OnClickListener of the grid photo
