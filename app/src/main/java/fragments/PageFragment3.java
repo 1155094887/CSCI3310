@@ -96,7 +96,7 @@ public class PageFragment3 extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentActivity activity = (FragmentActivity)(getActivity());
-                showTagFragment fragment= showTagFragment.newInistance("","",Uri.parse(""),"",false);
+                showTagFragment fragment= showTagFragment.newInistance("","",Uri.parse(""),"",false,urilist);
                 fragment.show(activity.getSupportFragmentManager(),showTagFragment.TAG);
             }
         });

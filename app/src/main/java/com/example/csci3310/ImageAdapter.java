@@ -89,9 +89,11 @@ public class ImageAdapter extends BaseAdapter {
     ArrayList<Uri> ImageUris = new ArrayList<Uri>();
     boolean mode;
     private ImageViewHolder holder;
+    ArrayList<String> uri_strings;
 
     public ImageAdapter(Context c, ArrayList<String> uris, boolean isEdit) {
         context = c;
+        uri_strings = uris;
         try{
             String[] temp = uris.toArray(new String[0]);
             for(int i = 0; i < temp.length;i++){
@@ -160,7 +162,7 @@ public class ImageAdapter extends BaseAdapter {
                         @Override
                         public boolean onMenuItemClick(MenuItem menuItem) {
                             FragmentActivity activity = (FragmentActivity)(context);
-                            showTagFragment fragment= showTagFragment.newInistance("","",Uri.parse(""),"",false);
+                            showTagFragment fragment= showTagFragment.newInistance("","",Uri.parse(""),"",true,uri_strings);
                             fragment.show(activity.getSupportFragmentManager(), showTagFragment.TAG);
 
 

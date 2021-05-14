@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -169,8 +174,28 @@ public class PageFragment2 extends Fragment {
                     // --- Bottomsheet Button Action ---
 
                     // Set the grid view
-//                    gridView = (GridView) bottomSheetView.findViewById(R.id.grid_view);
-//                    gridView.setAdapter(new ImageAdapter(getContext())); // this變getContext()
+                    String csv = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
+                    File picture_info = new File(csv.concat("/"+ Environment.DIRECTORY_DOCUMENTS), "detail.csv");
+                    ArrayList<String> stringArray = new ArrayList<String>();
+                    BufferedReader file = null;
+                    try {
+                        file = new BufferedReader(new FileReader(picture_info));
+
+                        String line;
+                        boolean replace = false;
+                        while ((line = file.readLine()) != null) {
+                            stringArray.add(line);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getActivity(),"Error getting data from external storage",Toast.LENGTH_SHORT).show();
+                    }
+                    ArrayList<String> urilist = new ArrayList<>();
+                    for(String row: stringArray){
+                        urilist.add(row.split(",")[5]);
+                    }
+                    gridView = (GridView) bottomSheetView.findViewById(R.id.gridview);
+                    gridView.setAdapter(new ImageAdapter(getContext(),urilist,true)); // this變getContext()
 //
 //                    // OnClickListener of the grid photo
 //                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
