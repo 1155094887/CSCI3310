@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:gravity="center"
     android:layout_height="match_parent"
@@ -10,16 +11,18 @@
 
     <Button
         android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="54dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="8dp"
+
         android:padding="8dp"
+        android:textColor="#FFFFFF"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="@string/take_photo"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextureView
         android:id="@+id/textureView"
@@ -38,19 +41,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="AUTO"
+        android:background="@drawable/round_btn"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/imageButton"/>
 
     <Button
         android:id="@+id/swapCameraButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="FRONT"
+        android:layout_width="56dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="8dp"
+
+        android:padding="8dp"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/imageButton"
-        android:padding="8dp"/>
+        app:layout_constraintRight_toLeftOf="@id/imageButton" />
 
 
 

@@ -114,7 +114,7 @@ public class PageFragment3 extends Fragment {
 //        TextView temp = view.findViewById(R.id.txt_fragment);
 //        temp.setText("heha");
 //      ArrayList<String> xd = new ArrayList<String>(Arrays.asList(new String[]{"haha", "hoho", "hehe"}));
-       mImageAdaptor = new ImageAdapter(getActivity(), urilist,true);
+       mImageAdaptor = new ImageAdapter(getActivity(), urilist,false);
 //        mImageAdaptor = new ImageAdapter(getActivity(), urilist);
         gallery.setAdapter(mImageAdaptor);
 

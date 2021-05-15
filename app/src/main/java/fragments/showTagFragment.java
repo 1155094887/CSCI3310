@@ -600,6 +600,8 @@ public class showTagFragment extends DialogFragment {
         EditText txt1 = show_filter_sort.findViewById(R.id.txt_date_1);
         EditText txt2 = show_filter_sort.findViewById(R.id.txt_date_2);
         EditText txt3 = show_filter_sort.findViewById(R.id.txt_person);
+        TextView from_textview = show_filter_sort.findViewById(R.id.from_textview);
+        TextView to_textview = show_filter_sort.findViewById(R.id.to_textview);
         final Spinner spinner = show_filter_sort.findViewById(R.id.spinnerplace_filter);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -607,27 +609,29 @@ public class showTagFragment extends DialogFragment {
                 // checkedId is the RadioButton selected
                 group.check(checkedId);
                 if(checkedId == R.id.radio_time){
-                    btn2.setVisibility(View.INVISIBLE);
+                    btn2.setVisibility(View.GONE);
                     btn2.setClickable(false);
 
-                    spinner.setVisibility(View.INVISIBLE);
+                    spinner.setVisibility(View.GONE);
                     btn1.setVisibility(View.VISIBLE);
                     btn1.setClickable(true);
                     txt1.setVisibility(View.VISIBLE);
                     txt2.setVisibility(View.VISIBLE);
+                    from_textview.setVisibility(View.VISIBLE);
+                    to_textview.setVisibility(View.VISIBLE);
                     txt1.setFocusable(false);
                     txt2.setFocusable(false);
-                    txt3.setVisibility(View.INVISIBLE);
+                    txt3.setVisibility(View.GONE);
                 }else if (checkedId == R.id.radio_location){
                     btn2.setVisibility(View.VISIBLE);
                     btn2.setClickable(true);
-                    btn1.setVisibility(View.INVISIBLE);
+                    btn1.setVisibility(View.GONE);
                     btn1.setClickable(false);
-                    txt1.setVisibility(View.INVISIBLE);
-                    txt2.setVisibility(View.INVISIBLE);
+                    txt1.setVisibility(View.GONE);
+                    txt2.setVisibility(View.GONE);
                     txt1.setFocusable(false);
                     txt2.setFocusable(false);
-                    txt3.setVisibility(View.INVISIBLE);
+                    txt3.setVisibility(View.GONE);
 
                     spinner.setVisibility(View.VISIBLE);
 
@@ -654,24 +658,24 @@ public class showTagFragment extends DialogFragment {
                         }
                     });
                 }else if (checkedId == R.id.radio_person){
-                    btn1.setVisibility(View.INVISIBLE);
+                    btn1.setVisibility(View.GONE);
                     btn1.setClickable(false);
-                    txt1.setVisibility(View.INVISIBLE);
-                    txt2.setVisibility(View.INVISIBLE);
+                    txt1.setVisibility(View.GONE);
+                    txt2.setVisibility(View.GONE);
                     txt1.setFocusable(false);
                     txt2.setFocusable(false);
                     btn2.setVisibility(View.VISIBLE);
                     btn2.setClickable(true);
                     txt3.setVisibility(View.VISIBLE);
                     txt3.setClickable(true);
-                    spinner.setVisibility(View.INVISIBLE);
+                    spinner.setVisibility(View.GONE);
                 }else{
-                    btn1.setVisibility(View.INVISIBLE);
-                    txt1.setVisibility(View.INVISIBLE);
-                    txt2.setVisibility(View.INVISIBLE);
-                    txt3.setVisibility(View.INVISIBLE);
+                    btn1.setVisibility(View.GONE);
+                    txt1.setVisibility(View.GONE);
+                    txt2.setVisibility(View.GONE);
+                    txt3.setVisibility(View.GONE);
                     btn2.setVisibility(View.VISIBLE);
-                    spinner.setVisibility(View.INVISIBLE);
+                    spinner.setVisibility(View.GONE);
                 }
 
             }
@@ -728,122 +732,128 @@ public class showTagFragment extends DialogFragment {
         });
         //flitering algo
         uri_filtered_list = new ArrayList<String>();
-        btn2.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy:mm:dd");
-                String csv = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
-                File picture_info = new File(csv.concat("/"+ Environment.DIRECTORY_DOCUMENTS), "detail.csv");
-                ArrayList<String> stringArray = new ArrayList<String>();
-                BufferedReader file = null;
-                try {
-                    file = new BufferedReader(new FileReader(picture_info));
-
-                    String line;
-                    boolean replace = false;
-                    while ((line = file.readLine()) != null) {
-                        stringArray.add(line);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getActivity(),"Error getting data from external storage",Toast.LENGTH_SHORT).show();
-                }
-                FragmentTransaction transaction;
-//                BlankFragment BlankFragment;
-                Bundle bundle;
-                ArrayList<String> time_list = new ArrayList<String>();
-                ArrayList<String> selected_row = new ArrayList<String>();
-                ArrayList<String> locations = new ArrayList<String>();
-                ArrayList<String> people_list = new ArrayList<String>();
-
-                if(urilist == null){
-                    return;
-                }
-                for(String uri : urilist){
-                    String name = uri.split("/")[(uri.split("/")).length-1];
-                    for(String string : stringArray){
-                        if(stringArray.indexOf(string) == 0 || string.equals("\n")){
-                            continue;
-                        }
-//                        Toast.makeText(getApplicationContext(),name+" "+string.split(",")[0],Toast.LENGTH_SHORT).show();
-//                                String lower_string = string.split(",")[2].toLowerCase();
-                        if(string.split(",")[5].contains(uri)){
-                            selected_row.add(string);
-                            time_list.add(String.join(":",string.split(",")[1].substring(1,string.split(",")[1].length()-1).split("-")));
-                            locations.add(string.split(",")[2]);
-//                            Toast.makeText(getApplicationContext(),string.split(",")[2].toLowerCase(),Toast.LENGTH_SHORT).show();
-                            people_list.add(string.split(",")[4].toLowerCase());
-//                            uri_gen_list.add(string.split(",")[5].substring(1,string.split(",")[5].length()-1));
-                        }
-                    }
-                }
-                try{
-                    switch(radioGroup.getCheckedRadioButtonId()){
-                    case R.id.radio_time:
-                        String time_down_bound = txt1.getText().toString();
-                        String time_up_bound = txt2.getText().toString();
-                        for(int i = 0; i < urilist.size();i++){
-                            try {
-                                if(sdf.parse(time_list.get(i)).getTime() >= sdf.parse(time_down_bound).getTime() && sdf.parse(time_up_bound).getTime() >= sdf.parse(time_list.get(i)).getTime()){
-                                    uri_filtered_list.add(urilist.get(i));
-                                }else{
-
-                                }
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        isFiltered[0] = true;
-//                        urilist = (ArrayList<String>) uri_filtered_list.clone();
-                        break;
-                    case R.id.radio_location:
-                        String loc_bound = spinner.getSelectedItem().toString();
-                        ;
-                        int count = urilist.size();
-                        for(int i = 0; i < count;i++){
-
-                            if(locations.get(i).contains(loc_bound)){
-                                uri_filtered_list.add(urilist.get(i));
-                            }
-                        }
-                        isFiltered[0] = true;
-//                        urilist = (ArrayList<String>) uri_filtered_list.clone();
-                        break;
-                    case R.id.radio_person:
-                        count = urilist.size();
-                        String ppl_bound = txt3.getText().toString();
-                        for(int i = 0; i < count;i++){
-                            if(people_list.get(i).contains(ppl_bound)){
-                                uri_filtered_list.add(urilist.get(i));
-                            }
-                        }
-                        isFiltered[0] = true;
-//                        urilist = (ArrayList<String>) uri_filtered_list.clone();
-                        break;
-                    case R.id.radio_none:
-
-//                        urilist = new ArrayList<String>(Arrays.asList(urilist));
-//                        uri_filtered_list = (ArrayList<String>) urilist.clone();
-                        break;
-                }
-                }catch(IndexOutOfBoundsException e){
-                    Toast.makeText(getActivity(),"photo tag not being created or something wrong with storage please retry.",Toast.LENGTH_SHORT).show();
-                }
-
-
-
-
-            }
-
-
-        });
         // set dialog with on ok listener
         return new AlertDialog.Builder(requireContext())
                 .setMessage("Tag Form")
 //                .setView(R.id.editField)
                 .setView(showInfo ? show_tag : show_filter_sort)
                 .setPositiveButton("ok", (dialog, which) -> {
+
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy:mm:dd");
+                            String csv = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
+                            File picture_info = new File(csv.concat("/"+ Environment.DIRECTORY_DOCUMENTS), "detail.csv");
+                            ArrayList<String> stringArray = new ArrayList<String>();
+                            BufferedReader file = null;
+                            try {
+                                file = new BufferedReader(new FileReader(picture_info));
+
+                                String line;
+                                boolean replace = false;
+                                while ((line = file.readLine()) != null) {
+                                    stringArray.add(line);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                Toast.makeText(getActivity(),"Error getting data from external storage",Toast.LENGTH_SHORT).show();
+                            }
+                            FragmentTransaction transaction;
+//                BlankFragment BlankFragment;
+                            Bundle bundle;
+                            ArrayList<String> time_list = new ArrayList<String>();
+                            ArrayList<String> selected_row = new ArrayList<String>();
+                            ArrayList<String> locations = new ArrayList<String>();
+                            ArrayList<String> people_list = new ArrayList<String>();
+
+                            if(urilist == null){
+                                return;
+                            }
+                            for(String uri_string : urilist){
+                                String name = uri_string.split("/")[(uri.split("/")).length-1];
+                                for(String string : stringArray){
+                                    if(stringArray.indexOf(string) == 0 || string.equals("\n")){
+                                        continue;
+                                    }
+//                        Toast.makeText(getApplicationContext(),name+" "+string.split(",")[0],Toast.LENGTH_SHORT).show();
+//                                String lower_string = string.split(",")[2].toLowerCase();
+                                    if(string.split(",")[5].contains(uri)){
+                                        selected_row.add(string);
+                                        time_list.add(String.join(":",string.split(",")[1].substring(1,string.split(",")[1].length()-1).split("-")));
+                                        locations.add(string.split(",")[2]);
+//                            Toast.makeText(getApplicationContext(),string.split(",")[2].toLowerCase(),Toast.LENGTH_SHORT).show();
+                                        people_list.add(string.split(",")[4].toLowerCase());
+//                            uri_gen_list.add(string.split(",")[5].substring(1,string.split(",")[5].length()-1));
+                                    }
+                                }
+                            }
+                            try{
+                                switch(radioGroup.getCheckedRadioButtonId()){
+                                    case R.id.radio_time:
+                                        String time_down_bound = txt1.getText().toString();
+                                        String time_up_bound = txt2.getText().toString();
+                                        for(int i = 0; i < urilist.size();i++){
+                                            try {
+                                                if(sdf.parse(time_list.get(i)).getTime() >= sdf.parse(time_down_bound).getTime() && sdf.parse(time_up_bound).getTime() >= sdf.parse(time_list.get(i)).getTime()){
+                                                    uri_filtered_list.add(urilist.get(i));
+                                                }else{
+
+                                                }
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                        isFiltered[0] = true;
+//                        urilist = (ArrayList<String>) uri_filtered_list.clone();
+                                        break;
+                                    case R.id.radio_location:
+                                        String loc_bound = spinner.getSelectedItem().toString();
+                                        ;
+                                        int count = urilist.size();
+                                        for(int i = 0; i < count;i++){
+
+                                            if(locations.get(i).contains(loc_bound)){
+                                                uri_filtered_list.add(urilist.get(i));
+                                            }
+                                        }
+                                        isFiltered[0] = true;
+//                        urilist = (ArrayList<String>) uri_filtered_list.clone();
+                                        break;
+                                    case R.id.radio_person:
+                                        count = urilist.size();
+                                        String ppl_bound = txt3.getText().toString();
+                                        for(int i = 0; i < count;i++){
+                                            if(people_list.get(i).contains(ppl_bound)){
+                                                uri_filtered_list.add(urilist.get(i));
+                                            }
+                                        }
+                                        isFiltered[0] = true;
+//                        urilist = (ArrayList<String>) uri_filtered_list.clone();
+                                        break;
+                                    case R.id.radio_none:
+
+//                        urilist = new ArrayList<String>(Arrays.asList(urilist));
+//                        uri_filtered_list = (ArrayList<String>) urilist.clone();
+                                        break;
+                                }
+                            }catch(IndexOutOfBoundsException e){
+                                Toast.makeText(getActivity(),"photo tag not being created or something wrong with storage please retry.",Toast.LENGTH_SHORT).show();
+                            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     if(!showInfo){
                         ImageAdapter mImageAdaptor;
                         if(!isFiltered[0]){
@@ -856,98 +866,7 @@ public class showTagFragment extends DialogFragment {
                         gridview.setAdapter(mImageAdaptor);
                     }
 
-//                    String name_out = editName.getText().toString();
-//                    String time_out = editView.getText().toString();
-//                    String place_out = dropdown.getSelectedItem().toString();
-//                    String lat_long_out = districts[dropdown.getSelectedItemPosition()];
-//                    String person_out = editPerson.getText().toString();
-//                    for(int i = 1; i <= count;i++){
-//                        person_out += ";"+((TextView)tag_view.findViewWithTag("edit_person"+String.valueOf(i))).getText().toString();
-//                    }
-////                    person_out = person_out.substring(0,person_out.length()-1);
-//
-//                    String uri_out = uri;
-//                    Toast.makeText(getActivity(),person_out,Toast.LENGTH_SHORT).show();
-//                    String data_out = "'"+name_out + "','" + time_out + "','"+ place_out + "','" + lat_long_out + "','"+person_out+"','"+uri_out+"'";
-//                    String csv = Environment.getExternalStorageDirectory().getAbsolutePath();
-//
-////                    Toast.makeText(getActivity(),csv,Toast.LENGTH_SHORT).show();
-////                    CSVWriter writer = new CSVWriter(new FileWriter(csv));
-////                    File root = Environment.getExternalStorageDirectory();
-//                    File picture_info = new File(csv.concat("/"+Environment.DIRECTORY_DOCUMENTS), "detail.csv");
-//                    picture_info.setWritable(true);
-//
-//                    try {
-//
-////                        Toast.makeText(getActivity(), Boolean.toString(picture_info.exists()),Toast.LENGTH_SHORT).show();
-//                        if(picture_info.exists()){
-//                            BufferedReader file = new BufferedReader(new FileReader(picture_info));
-//                            StringBuffer inputBuffer = new StringBuffer();
-//                            ArrayList<String> stringArray = new ArrayList<String>();
-//                            String line;
-//                            boolean replace = false;
-//                            while ((line = file.readLine()) != null) {
-//
-//                                if(line.contains(uri_out)){
-//                                    replace = true;
-//                                    inputBuffer.append(data_out);
-//                                    stringArray.add(data_out);
-//
-//                                }else{
-//
-//                                    inputBuffer.append(line);
-//                                    stringArray.add(line);
-//                                }
-//                                inputBuffer.append('\n');
-////                                stringArray.add("\n");
-//                            }
-//                            file.close();
-////                            Toast.makeText(getActivity(),Boolean.toString(replace),Toast.LENGTH_SHORT).show();;
-//                            if(!replace){
-//                                inputBuffer.append(data_out);
-//                                stringArray.add(data_out);
-//                            }
-////                            Toast.makeText(getActivity(),stringArray,Toast.LENGTH_SHORT).show();
-//                            BufferedWriter writer = new BufferedWriter(new FileWriter(picture_info));
-//                            writer.write("Name,Time,Place,Latitude,Person,uri");
-//                            writer.write("\n");
-//                            for(String string :stringArray){
-//
-//                                if(string.equals("\n") || string.equals("Name,Time,Place,Latitude,Person,uri") || string.equals("")){
-//                                    continue;
-//                                }else{
-//
-//                                    writer.write(string);
-//                                    writer.write("\n");
-//
-//
-//                                }
-//
-//                            }
-////                            writer.write(data_out);
-////                            writer.newLine();
-//                            writer.flush();
-//                            writer.close();
-//
-//                        }else{
-//                            BufferedWriter writer = new BufferedWriter(new FileWriter(picture_info, true));
-//                            writer.write("Name,Time,Place,Latitude,Person,uri");
-//                            writer.newLine();
-//                            writer.write(data_out);
-//                            writer.newLine();
-//                            writer.flush();
-//                            writer.close();
-//                        }
-//
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//
-////                    editPerson.setAdapter();
-//
-//                    ((MainActivity)getActivity()).setDate_in_EditText(person_out);
-                } )
+                })
                 .create();
     }
 

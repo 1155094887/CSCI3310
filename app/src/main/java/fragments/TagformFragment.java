@@ -163,7 +163,7 @@ public class TagformFragment extends DialogFragment {
 
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) autoCompleteTextView.getLayoutParams();
             layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
-            layoutParams.setMargins(20,20,0,0);
+            layoutParams.setMargins(0,20,0,0);
 
             autoCompleteTextView.setLayoutParams(layoutParams);
             autoCompleteTextView.setTag("edit_person"+String.valueOf(i));
