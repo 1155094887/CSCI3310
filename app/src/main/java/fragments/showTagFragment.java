@@ -596,7 +596,7 @@ public class showTagFragment extends DialogFragment {
         //set radio group of flitering
         RadioGroup radioGroup = (RadioGroup) show_filter_sort.findViewById(R.id.radioGroup);
         Button btn1 = show_filter_sort.findViewById(R.id.btn_selected_date_1);
-        Button btn2 = show_filter_sort.findViewById(R.id.btn_selected_date_2);
+        //Button btn2 = show_filter_sort.findViewById(R.id.btn_selected_date_2);
         EditText txt1 = show_filter_sort.findViewById(R.id.txt_date_1);
         EditText txt2 = show_filter_sort.findViewById(R.id.txt_date_2);
         EditText txt3 = show_filter_sort.findViewById(R.id.txt_person);
@@ -609,8 +609,7 @@ public class showTagFragment extends DialogFragment {
                 // checkedId is the RadioButton selected
                 group.check(checkedId);
                 if(checkedId == R.id.radio_time){
-                    btn2.setVisibility(View.GONE);
-                    btn2.setClickable(false);
+
 
                     spinner.setVisibility(View.GONE);
                     btn1.setVisibility(View.VISIBLE);
@@ -623,8 +622,7 @@ public class showTagFragment extends DialogFragment {
                     txt2.setFocusable(false);
                     txt3.setVisibility(View.GONE);
                 }else if (checkedId == R.id.radio_location){
-                    btn2.setVisibility(View.VISIBLE);
-                    btn2.setClickable(true);
+
                     btn1.setVisibility(View.GONE);
                     btn1.setClickable(false);
                     txt1.setVisibility(View.GONE);
@@ -632,6 +630,8 @@ public class showTagFragment extends DialogFragment {
                     txt1.setFocusable(false);
                     txt2.setFocusable(false);
                     txt3.setVisibility(View.GONE);
+                    from_textview.setVisibility(View.INVISIBLE);
+                    to_textview.setVisibility(View.INVISIBLE);
 
                     spinner.setVisibility(View.VISIBLE);
 
@@ -664,17 +664,20 @@ public class showTagFragment extends DialogFragment {
                     txt2.setVisibility(View.GONE);
                     txt1.setFocusable(false);
                     txt2.setFocusable(false);
-                    btn2.setVisibility(View.VISIBLE);
-                    btn2.setClickable(true);
+
                     txt3.setVisibility(View.VISIBLE);
                     txt3.setClickable(true);
                     spinner.setVisibility(View.GONE);
+                    from_textview.setVisibility(View.INVISIBLE);
+                    to_textview.setVisibility(View.INVISIBLE);
                 }else{
                     btn1.setVisibility(View.GONE);
                     txt1.setVisibility(View.GONE);
                     txt2.setVisibility(View.GONE);
                     txt3.setVisibility(View.GONE);
-                    btn2.setVisibility(View.VISIBLE);
+                    from_textview.setVisibility(View.INVISIBLE);
+                    to_textview.setVisibility(View.INVISIBLE);
+
                     spinner.setVisibility(View.GONE);
                 }
 
@@ -726,8 +729,7 @@ public class showTagFragment extends DialogFragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                btn2.setVisibility(View.VISIBLE);
-                btn2.setClickable(true);
+
             }
         });
         //flitering algo

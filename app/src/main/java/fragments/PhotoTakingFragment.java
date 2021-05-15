@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ContextWrapper;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -147,36 +148,37 @@ public class PhotoTakingFragment extends Fragment {
             }
         });
 
-        if (lensFacing==CameraX.LensFacing.FRONT){
-            flashLightButton.setText("Front");
-        }else {
+
             flashLightButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String buttonText = (String) flashLightButton.getText();
+                    String buttonText = (String) flashLightButton.getTag();
                     ImageCaptureConfig imageCaptureConfig;
 
                     switch (buttonText) {//TODO: Change to image Button
                         case ("AUTO"):
                             imageCapture.setFlashMode(FlashMode.ON);
-                            flashLightButton.setText("ON");
+                            flashLightButton.setTag("ON");
+                            flashLightButton.setBackground(getResources().getDrawable(R.drawable.ic_flash_auto));
                             break;
                         case ("ON"):
                             imageCapture.setFlashMode(FlashMode.OFF);
-                            flashLightButton.setText("OFF");
+                            flashLightButton.setTag("OFF");
+                            flashLightButton.setBackground(getResources().getDrawable(R.drawable.ic_flash_on));
                             break;
                         case ("OFF"):
                             imageCapture.setFlashMode(FlashMode.AUTO);
-                            flashLightButton.setText("AUTO");
+                            flashLightButton.setTag("AUTO");
+                            flashLightButton.setBackground(getResources().getDrawable(R.drawable.ic_flash_off));
                             break;
                         default://TODO: Change to Error message
                             //imageCaptureConfig = new ImageCaptureConfig.Builder().setCaptureMode(ImageCapture.CaptureMode.MIN_LATENCY).setFlashMode(FlashMode.ON).build();
-                            flashLightButton.setText("ON");
+                            flashLightButton.setTag("ON");
                             break;
                     }
                 }
             });
-        }
+
 
         lensButton.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("RestrictedApi")
@@ -184,10 +186,12 @@ public class PhotoTakingFragment extends Fragment {
             public void onClick(View v) {
                 if (lensFacing == CameraX.LensFacing.BACK){
                     lensFacing=CameraX.LensFacing.FRONT;
+                    flashLightButton.setVisibility(View.GONE);
                     startCamera();
                 }
                 else {
                     lensFacing= CameraX.LensFacing.BACK;
+                    flashLightButton.setVisibility(View.VISIBLE);
                     startCamera();
                 }
             }
